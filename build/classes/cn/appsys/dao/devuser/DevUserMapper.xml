@@ -27,7 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 	</update>
 	<select id="getDevUser" resultType="DevUser">
-		select `id`,`devCode`, `devName`, `devPassword`, `devEmail`, `devInfo`, `createdBy`, `creationDate`, `modifyBy`, `modifyDate` from dev_user a
+		select `id`,`devCode`, `devName`, `devPassword`, `devEmail`,
+		`devInfo`, `createdBy`, `creationDate`, `modifyBy`, `modifyDate` from
+		dev_user a
 		<trim prefix="where" prefixOverrides="and | or">
 			<if test="id != null">
 				and a.id = #{id}
@@ -41,7 +43,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 	</select>
 	<insert id="add" parameterType="DevUser">
-	INSERT INTO `appinfodb`.`dev_user` (`devCode`, `devName`, `devPassword`, `devEmail`, `devInfo`, `createdBy`, `creationDate`, `modifyBy`, `modifyDate`) 
-	VALUES ( #{devCode}, #{devName}, #{devPassword}, #{devEmail}, #{devInfo}, #{createdBy}, #{creationDate}, #{modifyBy}, #{modifyDate});
+		INSERT INTO `appinfodb`.`dev_user` (`devCode`, `devName`, `devPassword`,
+		`devEmail`, `devInfo`, `createdBy`, `creationDate`, `modifyBy`,
+		`modifyDate`)
+		VALUES ( #{devCode}, #{devName}, #{devPassword}, #{devEmail}, #{devInfo},
+		#{createdBy}, #{creationDate}, #{modifyBy}, #{modifyDate});
 	</insert>
+	<select id="getListDevUser" resultType="DevUser">
+		select `id`,`devCode`,
+		`devName`, `devPassword`, `devEmail`, `devInfo`, `createdBy`,
+		`creationDate`, `modifyBy`, `modifyDate` from dev_user
+		order by creationDate DESC limit #{from},#{pageSize}
+	</select>
+	<select id="getDevUserCount" resultType="Int">
+		select count(*) as count from dev_user
+	</select>
 </mapper>

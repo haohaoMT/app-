@@ -11,7 +11,6 @@ $(function(){
 				success:function(data){//data：返回数据（json对象）
 					if(data.devCode == "empty"){//参数devCode为空，错误提示
 						alert("账号为不能为空！");
-						$("#sub").attr("disabled",true);
 					}else if(data.devCode == "exist"){//账号不可用，错误提示
 						alert("该账号已存在，不能使用！");
 					}else if(data.devCode == "noexist"){//账号可用，正确提示

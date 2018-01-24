@@ -29,6 +29,8 @@
     <link href="${pageContext.request.contextPath }/statics/css/custom.min.css" rel="stylesheet">
     <!-- add localcss 2016-8-21 -->
     <link href='${pageContext.request.contextPath }/statics/localcss/applist.css' rel='stylesheet'>
+    	<!-- 分页 -->
+	<link href='${pageContext.request.contextPath }/statics/localcss/paging.css' rel='stylesheet'>
   </head>
   <body class="nav-md footer_fixed">
     <div class="container body">
@@ -68,7 +70,7 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> 用户管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="javascript:;">后台用户管理</a></li>
+                      <li><a href="${pageContext.request.contextPath }/manager/backend/devUser/devUserList">后台用户管理</a></li>
                       <li><a href="javascript:;">开发者资质审核</a></li>
                     </ul>
                   </li>

@@ -1,5 +1,7 @@
 package cn.appsys.service.developer;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -46,6 +48,16 @@ public class DevUserServiceImpl implements DevUserService {
 			flag = true;
 		}
 		return flag;
+	}
+	@Override
+	public List<DevUser> getListDevUser(Integer currentPageNo, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return mapper.getListDevUser(currentPageNo, pageSize);
+	}
+	@Override
+	public int getDevUserCount() {
+		// TODO Auto-generated method stub
+		return mapper.getDevUserCount();
 	}
 	
 
