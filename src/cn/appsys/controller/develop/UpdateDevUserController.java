@@ -23,6 +23,11 @@ public class UpdateDevUserController {
 	private DevUserService service;
 	private Logger logger = Logger.getLogger(UpdateDevUserController.class);
 
+	/**进入修改页面
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/updateDevUser", method = RequestMethod.GET)
 	public String goUpdateDevUser(HttpSession session, Model model) {
 		Integer id = ((DevUser) session.getAttribute(Constants.DEV_USER_SESSION)).getId();
@@ -33,6 +38,12 @@ public class UpdateDevUserController {
 	}
 
 	
+	/**修改保存
+	 * @param devUser
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "/updateDevUser", method = RequestMethod.POST)
 	public String getUpdateDevUser(DevUser devUser, Model model,HttpSession session) {
 		if (devUser != null) {
@@ -62,5 +73,5 @@ public class UpdateDevUserController {
 		return "redirect:/dev/logout";
 
 	}
-
+	
 }

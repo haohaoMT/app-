@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.appsys.pojo.BackendUser;
 import cn.appsys.service.backend.BackendUserService;
 import cn.appsys.tools.Constants;
+import cn.appsys.tools.MD5;
 
 @Controller
 @RequestMapping(value="/manager")
@@ -35,9 +36,8 @@ public class UserLoginController {
 		logger.debug("登陆验证");
 		BackendUser backendUser = null;
 		try {
-			backendUser = backendUserService.login(userCode, userPassword);
+			backendUser = backendUserService.login(userCode, MD5.EncoderByMd5(userPassword));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (backendUser != null) {//登陆成功

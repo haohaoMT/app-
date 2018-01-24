@@ -1,6 +1,8 @@
 package cn.appsys.controller.develop;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.service.developer.DevUserService;
 import cn.appsys.tools.Constants;
+import cn.appsys.tools.MD5;
 
 @Controller
 @RequestMapping(value="/dev")
@@ -43,7 +46,15 @@ public class DevUserController {
 		logger.debug("dologin======");
 		DevUser user = null;
 		//判断账号密码
-		user = service.login(devCode, devPassword);
+		try {
+			user = service.login(devCode,MD5.EncoderByMd5(devPassword) );
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (user != null) {
 			//存入session
 			session.setAttribute(Constants.DEV_USER_SESSION,user);
@@ -68,6 +79,10 @@ public class DevUserController {
 	}
 	
 	
+	/**登出
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		//清除session 
@@ -79,6 +94,7 @@ public class DevUserController {
 	public void logoutIndex(HttpSession session,HttpServletResponse res,HttpServletRequest req) {
 		//清除session 
 		session.removeAttribute(Constants.DEV_USER_SESSION);
+		session.removeAttribute(Constants.USER_SESSION);
 		try {
 			res.sendRedirect(req.getContextPath()+
 					"/index.jsp");

@@ -1,5 +1,7 @@
 package cn.appsys.controller.develop;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -19,6 +21,7 @@ import com.mysql.jdbc.StringUtils;
 import cn.appsys.pojo.AppInfo;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.service.developer.DevUserService;
+import cn.appsys.tools.MD5;
 
 @Controller
 @RequestMapping(value="/dev/add")
@@ -35,9 +38,15 @@ public class AddDevUserController {
 	@RequestMapping(value="addDevUser",method=RequestMethod.POST)
 	public String getAddDevUser(DevUser devUser,HttpServletRequest request) {
 		devUser.setCreatedBy(devUser.getId());
+		try {
+			devUser.setDevPassword(MD5.EncoderByMd5(devUser.getDevPassword()));
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		devUser.setCreationDate(new Date());
 		if (service.add(devUser)) {
-			return "devlogin";
+			return "redirect:/dev/login";
 		}else {
 			request.setAttribute("error", "注册失败");
 			return "/developer/devuseradd";
@@ -46,6 +55,10 @@ public class AddDevUserController {
 	
 	
 
+	/**判断开发者账号是否存在
+	 * @param devCode
+	 * @return
+	 */
 	@RequestMapping(value = "selectByDevCode.json", method = RequestMethod.GET)
 	@ResponseBody
 	public Object selectByDevCode(@RequestParam String devCode) {

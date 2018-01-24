@@ -78,7 +78,7 @@
 					<div class="ln_solid"></div>
 					<div class="form-group">
 						<div class="col-md-6 col-md-offset-3">
-							<button type="submit" id="sub" class="btn btn-primary">提交</button>
+							<button type="button" id="sub" class="btn btn-primary">提交</button>
 							<button  type="reset" class="btn btn-success">重置</button>
 						</div>
 						<span>${error }</span>
